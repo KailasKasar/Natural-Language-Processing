@@ -1,11 +1,23 @@
-Naive Bayes algorithm to create a model that can classify dataset SMS messages as spam or not spam.
-I am using dataset from UCI machine learning repository https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection.
+# Natural Language Processing
+Natural Language Processing (or NLP) is applying Machine Learning algorithms to words and phrases.
+Using Natural Language Processing we are teaching machines to understand what is said in spoken and written word. 
+
+#Wikipedia definition for NLP
+
+Natural language processing (NLP) is a subfield of computer science, information engineering, 
+and artificial intelligence concerned with the interactions between computers and human (natural) languages,
+in particular how to program computers to process and analyze large amounts of natural language data.
+
+In this project I am using NLP algorithm to classify dataset SMS message as spam or not spam.
+
+Machine Learning models like Logistic Regression, Naive Bayes, CART are best used for classification problem.
+
+#Naive Bayes
+I am using Naive Bayes model that can classify dataset SMS messages as spam or not spam.
+Dataset used for this project is available on UCI machine learning repository https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection.
 Bayes theorem calculates the probability of a certain event happening(message being spam)
 based on the joint probabilistic distributions of certain other events(a message being classified as spam).
 
-
-
-# Natural Language Processing
 
 # Importing the libraries
 import pandas as pd
