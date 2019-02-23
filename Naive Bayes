@@ -18,8 +18,13 @@ Dataset used for this project is available on UCI machine learning repository ht
 Bayes theorem calculates the probability of a certain event happening(message being spam)
 based on the joint probabilistic distributions of certain other events(a message being classified as spam).
 
+Will follow below steps to build the classification model.
 
-# Importing the libraries
+1) Clean the dataset
+2) Create bag of word model
+3) Apply Naive bayes model onto bag of word using scikit-learn.
+
+# Importing the pandas libraries
 import pandas as pd
 
 # Importing the dataset
@@ -27,8 +32,17 @@ dataset = pd.read_table('SMSSpamCollection', sep='\t',
                    header=None, 
                    names=['label', 'sms_message'])
 
+# As scikit-learn deals with binary value we need to convert our label into binary value.
 dataset['label'] = dataset.label.map({'ham':0, 'spam':1})
+
 # Cleaning the texts
+# To process the raw text we use re (for regular expression) and nltk libraries.
+#Steps to clean the text are
+#1) finding non albhabets in dataset
+#2) convering albhabets in lower case
+#3) spliting the string into words
+#4) finding non english words in array
+
 import re
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
@@ -43,7 +57,16 @@ for i in range(0, 5572):
     bag.append(msg)
 
 # Creating the Bag of Words model
+#A bag-of-words model, or BoW for short, is a way of extracting features from text for use in modeling, such as with machine learning algorithms.
+#The approach is very simple and flexible, and can be used in a myriad of ways for extracting features from documents.
+#A bag-of-words is a representation of text that describes the occurrence of words within a document.
+#It involves two things:
+#A vocabulary of known words.
+#A measure of the presence of known words.
+#reference:https://machinelearningmastery.com/gentle-introduction-bag-words-model/
+
 from sklearn.feature_extraction.text import CountVectorizer
+# CountVectorizer convert a collection of text documents to a matrix of token counts
 cv = CountVectorizer(max_features = 5000)
 X = cv.fit_transform(bag).toarray()
 y = dataset['label'].values
@@ -64,3 +87,17 @@ y_pred = classifier.predict(X_test)
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+#Confusion matrix is showing great accuracy for developed model.
+  |  0  | 1
+-------------
+0 | 946 | 9
+------------
+1 | 8   | 152
+
+#Advantages of using Naive bayes
+Naive bayes approch is simple and fast and have ability to handle large numer of features.
+Naive bayes rarely overfit the data.
+In our model it has handle large nummber of features(5000), 
+in presence of irrelevant features model performance is unaffected and produce accurate predictions.
+
